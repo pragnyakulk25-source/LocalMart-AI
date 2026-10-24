@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocaMart AI - Local E-Commerce Marketplace</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen p-6">
+
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-8 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+            <div>
+                <h1 class="text-3xl font-black text-indigo-600">LocaMart AI 🛍️</h1>
+                <p class="text-slate-500 text-sm">Empowering Local Stores with Smart Commerce</p>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="switchRole('buyer')" id="buyerBtn" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-indigo-600 text-white transition">Buyer Portal</button>
+                <button onclick="switchRole('seller')" id="sellerBtn" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-slate-200 text-slate-700 transition">Seller Dashboard</button>
+            </div>
+        </header>
+
+        <!-- BUYER PORTAL -->
+        <section id="buyerPortal">
+            <!-- AI Search & Recommendation Bar -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm mb-8">
+                <label class="block text-sm font-bold text-slate-700 mb-2">Smart AI Local Search & Recommendation</label>
+                <div class="flex gap-3">
+                    <input type="text" id="aiQuery" placeholder="e.g., I need wireless audio or natural honey..." class="flex-1 border border-slate-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <button onclick="searchAI()" class="bg-indigo-600 text-white font-medium px-6 py-3 rounded-xl hover:bg-indigo-700">Find Local Products ⚡</button>
+                </div>
+                <p id="aiInsight" class="text-xs text-indigo-600 font-semibold mt-3 italic"></p>
+            </div>
+
+            <!-- Product Cards -->
+            <h2 class="text-xl font-bold mb-4">Available Local Shop Inventory</h2>
+            <div id="productGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+        </section>
+
+        <!-- SELLER DASHBOARD -->
+        <section id="sellerPortal" class="hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Add Inventory Form -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <h2 class="text-xl font-bold text-slate-800 mb-4">Add Product to Store Inventory</h2>
+                    <div class="space-y-4">
+                        <input type="text" id="pName" placeholder="Product Name" class="w-full border p-3 rounded-xl">
+                        <div class="grid grid-cols-2 gap-3">
+                            <input type="number" id="pPrice" placeholder="Price ($)" class="border p-3 rounded-xl">
+                            <input type="number" id="pStock" placeholder="Stock Qty" class="border p-3 rounded-xl">
+                        </div>
+                        <input type="text" id="pCat" placeholder="Category (e.g. Electronics)" class="w-full border p-3 rounded-xl">
+                        <input type="text" id="pTags" placeholder="Tags (comma separated: audio, charging)" class="w-full border p-3 rounded-xl">
+                        <button onclick="addSellerProduct()" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700">Publish Product</button>
+                    </div>
+                </div>
+
+                <!-- Seller Analytics Dashboard -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-bold text-slate-800">Shop Performance</h2>
+                        <button onclick="loadAnalytics()" class="text-xs bg-slate-100 text-slate-600 px-3 py-1 rounded-lg border">Refresh</button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100">
+                            <span class="text-xs font-semibold text-indigo-500 uppercase">Total Revenue</span>
+                            <h3 id="statRevenue" class="text-2xl font-black text-indigo-900">$0.00</h3>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <span class="text-xs font-semibold text-slate-500 uppercase">Total Orders</span>
+                            <h3 id="statOrders" class="text-2xl font-black text-slate-800">0</h3>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-sm text-slate-700 mb-2">Recent Shop Orders:</h3>
+                    <div id="orderList" class="space-y-2 max-h-48 overflow-y-auto text-sm text-slate-600">
+                        <p class="text-xs text-slate-400">No orders processed yet.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
